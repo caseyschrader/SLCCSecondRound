@@ -1,0 +1,694 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.17.2"
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "3a679f3371cd65f2210235118fb7831a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "4147dbed0ddf6efa9ae2c6140e804b65",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"slcc-2021-graduation-data-analysis\">SLCC 2021 Graduation Data Analysis</h1>\n<span class=\"paragraph\">This notebook documents the data quality analysis performed on SLCC graduation data before building the dashboard.</span>\n<h2 id=\"overview\">Overview</h2>\n<ul>\n<li><strong>Data Sources</strong>: Students.csv and Graduations.csv</li>\n<li><strong>Purpose</strong>: Validate data quality and prepare for dashboard creation</li>\n<li><strong>Key Checks</strong>: Missing values, data consistency, logical validation</li>\n</ul></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "5eb6e78cc9ea8e41741abe5b2c791475",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"1-data-loading\">1. Data Loading</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "34ad7f71bbe35274bace50bc9f15c7f4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "c5524ac0991591c28f75cded9c3c33d0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Graduation records: 5824\nStudent records: 31583\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "PKri",
+      "code_hash": "ab22434a5a7ff9110ecb356c4e0836a3",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"2-initial-data-exploration\">2. Initial Data Exploration</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "4537d8811467a5a264c9b8dfbe9ba932",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='Xref-0' random-id='d4578a13-bd20-4584-49af-f19a4e5bcc20'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;STUDENT_ID&#92;&quot;:6053497.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;23-APR-18  09:57 AM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:89.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Engineering/Mechanical&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:73.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.633},{&#92;&quot;STUDENT_ID&#92;&quot;:5332847.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;10-AUG-17  02:27 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:69.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.357},{&#92;&quot;STUDENT_ID&#92;&quot;:5332847.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;15-DEC-16  03:46 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:69.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Computer Sci &amp; Info Systems&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Comp. Sciences &amp; Info. Systems&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.357},{&#92;&quot;STUDENT_ID&#92;&quot;:5404310.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;23-APR-18  03:00 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:94.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Visual Arts - Design Spec.&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Visual Arts &amp; Design&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Arts, Comm, &amp; New Media&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:69.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.779},{&#92;&quot;STUDENT_ID&#92;&quot;:5816064.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;13-JAN-17  12:43 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:16.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:1.354},{&#92;&quot;STUDENT_ID&#92;&quot;:4033773.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;07-DEC-16  01:06 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:27.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Social Work&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Social Work&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Humanities &amp; Social Sciences&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:63.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:1.387},{&#92;&quot;STUDENT_ID&#92;&quot;:4687986.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;04-MAY-17  01:11 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:6.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Visual Arts - Design Spec.&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Visual Arts &amp; Design&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Arts, Comm, &amp; New Media&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:69.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:4.0},{&#92;&quot;STUDENT_ID&#92;&quot;:4687986.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;01-MAR-17  01:37 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:6.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Graphic Communications&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Visual Arts &amp; Design&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Arts, Comm, &amp; New Media&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:4.0},{&#92;&quot;STUDENT_ID&#92;&quot;:5827117.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;23-APR-18  09:10 AM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:38.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Physics&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Physics&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Science, Math &amp; Engineering&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:63.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.55},{&#92;&quot;STUDENT_ID&#92;&quot;:5578085.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;31-JUL-18  04:20 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:62.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Computer Sci &amp; Info Systems&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Comp. Sciences &amp; Info. Systems&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.826}]&quot;' data-total-rows='20' data-total-columns='14' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;STUDENT_ID&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;GRAD_APPL_DATE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;GRADUATION_DATE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;GRADUATED_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;TOTAL_CREDITS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;DEGREE_TYPE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;MAJOR&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;DEPARTMENT&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;COLLEGE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;REQUIRED_HOURS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;FULLY_ONLINE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;AID_ELIGIBLE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;HONORS&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;OVERALL_GPA&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "09baf0bb95db3fad1abaea75df56e3df",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='SFPL-0' random-id='5eff5779-83e6-e805-917a-8cdc97c987e0'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:&#92;&quot;STUDENT_ID&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;float64&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;GRAD_APPL_DATE&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;datetime64[ns]&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;GRADUATION_DATE&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;datetime64[ns]&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;GRADUATED_IND&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;TOTAL_CREDITS&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;float64&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;DEGREE_TYPE&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;MAJOR&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;DEPARTMENT&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;COLLEGE&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;REQUIRED_HOURS&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;float64&#92;&quot;}]&quot;' data-total-rows='15' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;value&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "KaLf",
+      "code_hash": "b158ec1453e85e2ab7d4dbc5952858af",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='KaLf-0' random-id='6a64e1e5-7cd9-707c-f252-6d51131affc1'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;STUDENT_ID&#92;&quot;:6336689,&#92;&quot;GENDER&#92;&quot;:&#92;&quot;Female&#92;&quot;,&#92;&quot;RACE&#92;&quot;:&#92;&quot;White&#92;&quot;,&#92;&quot;HISPANIC_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;FIRST_ENROLLED&#92;&quot;:&#92;&quot;21-AUG-19  12:00 AM&#92;&quot;,&#92;&quot;TRANSFER_CREDITS&#92;&quot;:null},{&#92;&quot;STUDENT_ID&#92;&quot;:1039474,&#92;&quot;GENDER&#92;&quot;:&#92;&quot;Male&#92;&quot;,&#92;&quot;RACE&#92;&quot;:&#92;&quot;White&#92;&quot;,&#92;&quot;HISPANIC_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;FIRST_ENROLLED&#92;&quot;:&#92;&quot;29-AUG-01  12:00 AM&#92;&quot;,&#92;&quot;TRANSFER_CREDITS&#92;&quot;:null},{&#92;&quot;STUDENT_ID&#92;&quot;:6381349,&#92;&quot;GENDER&#92;&quot;:&#92;&quot;Female&#92;&quot;,&#92;&quot;RACE&#92;&quot;:&#92;&quot;Prefer Not to Say&#92;&quot;,&#92;&quot;HISPANIC_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;FIRST_ENROLLED&#92;&quot;:&#92;&quot;13-JAN-20  12:00 AM&#92;&quot;,&#92;&quot;TRANSFER_CREDITS&#92;&quot;:37.0},{&#92;&quot;STUDENT_ID&#92;&quot;:1387850,&#92;&quot;GENDER&#92;&quot;:&#92;&quot;Female&#92;&quot;,&#92;&quot;RACE&#92;&quot;:&#92;&quot;White&#92;&quot;,&#92;&quot;HISPANIC_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;FIRST_ENROLLED&#92;&quot;:&#92;&quot;27-SEP-93  12:00 AM&#92;&quot;,&#92;&quot;TRANSFER_CREDITS&#92;&quot;:null},{&#92;&quot;STUDENT_ID&#92;&quot;:358724,&#92;&quot;GENDER&#92;&quot;:&#92;&quot;Female&#92;&quot;,&#92;&quot;RACE&#92;&quot;:&#92;&quot;White&#92;&quot;,&#92;&quot;HISPANIC_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;FIRST_ENROLLED&#92;&quot;:&#92;&quot;25-AUG-20  12:00 AM&#92;&quot;,&#92;&quot;TRANSFER_CREDITS&#92;&quot;:null},{&#92;&quot;STUDENT_ID&#92;&quot;:6365060,&#92;&quot;GENDER&#92;&quot;:&#92;&quot;Female&#92;&quot;,&#92;&quot;RACE&#92;&quot;:&#92;&quot;White&#92;&quot;,&#92;&quot;HISPANIC_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;FIRST_ENROLLED&#92;&quot;:&#92;&quot;21-AUG-19  12:00 AM&#92;&quot;,&#92;&quot;TRANSFER_CREDITS&#92;&quot;:null},{&#92;&quot;STUDENT_ID&#92;&quot;:6361525,&#92;&quot;GENDER&#92;&quot;:&#92;&quot;Female&#92;&quot;,&#92;&quot;RACE&#92;&quot;:&#92;&quot;Prefer Not to Say&#92;&quot;,&#92;&quot;HISPANIC_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;FIRST_ENROLLED&#92;&quot;:&#92;&quot;21-AUG-19  12:00 AM&#92;&quot;,&#92;&quot;TRANSFER_CREDITS&#92;&quot;:null},{&#92;&quot;STUDENT_ID&#92;&quot;:1599936,&#92;&quot;GENDER&#92;&quot;:&#92;&quot;Male&#92;&quot;,&#92;&quot;RACE&#92;&quot;:&#92;&quot;White&#92;&quot;,&#92;&quot;HISPANIC_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;FIRST_ENROLLED&#92;&quot;:&#92;&quot;26-SEP-94  12:00 AM&#92;&quot;,&#92;&quot;TRANSFER_CREDITS&#92;&quot;:37.0},{&#92;&quot;STUDENT_ID&#92;&quot;:6385486,&#92;&quot;GENDER&#92;&quot;:&#92;&quot;Female&#92;&quot;,&#92;&quot;RACE&#92;&quot;:&#92;&quot;White&#92;&quot;,&#92;&quot;HISPANIC_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;FIRST_ENROLLED&#92;&quot;:&#92;&quot;11-JAN-21  12:00 AM&#92;&quot;,&#92;&quot;TRANSFER_CREDITS&#92;&quot;:null},{&#92;&quot;STUDENT_ID&#92;&quot;:1040454,&#92;&quot;GENDER&#92;&quot;:&#92;&quot;Male&#92;&quot;,&#92;&quot;RACE&#92;&quot;:&#92;&quot;White&#92;&quot;,&#92;&quot;HISPANIC_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;FIRST_ENROLLED&#92;&quot;:&#92;&quot;23-AUG-99  12:00 AM&#92;&quot;,&#92;&quot;TRANSFER_CREDITS&#92;&quot;:15.0}]&quot;' data-total-rows='20' data-total-columns='8' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;STUDENT_ID&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;GENDER&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;RACE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;HISPANIC_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;EVER_CONCURRENT_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;EVER_PELL_ELIGIBLE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;FIRST_ENROLLED&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;TRANSFER_CREDITS&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "rKVo",
+      "code_hash": "1eac96263817a9c803cfa32fe311b27e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='rKVo-0' random-id='36fa6ae8-7222-4fb8-52d9-dcfd4d2b417d'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:&#92;&quot;STUDENT_ID&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;int64&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;GENDER&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;RACE&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;HISPANIC_IND&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;FIRST_ENROLLED&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;TRANSFER_CREDITS&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;float64&#92;&quot;}]&quot;' data-total-rows='8' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;value&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "92aeca949303ed46bc14a341a906715b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"3-data-quality-checks\">3. Data Quality Checks</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "06695f516a3e03bf582b2c02da203888",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"31-missing-values\">3.1 Missing Values</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "528ec81af9828162883148e258f6c949",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='Kclp-0' random-id='2424a94b-370a-f99e-1fda-019584bfeee0'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:&#92;&quot;STUDENT_ID&#92;&quot;,&#92;&quot;value&#92;&quot;:112},{&#92;&quot;&#92;&quot;:&#92;&quot;GRAD_APPL_DATE&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;GRADUATION_DATE&#92;&quot;,&#92;&quot;value&#92;&quot;:1},{&#92;&quot;&#92;&quot;:&#92;&quot;GRADUATED_IND&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;TOTAL_CREDITS&#92;&quot;,&#92;&quot;value&#92;&quot;:35},{&#92;&quot;&#92;&quot;:&#92;&quot;DEGREE_TYPE&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;MAJOR&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;DEPARTMENT&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;COLLEGE&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;REQUIRED_HOURS&#92;&quot;,&#92;&quot;value&#92;&quot;:977}]&quot;' data-total-rows='14' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;value&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "d7c930bf6692cd840b029a71a0130d5f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='emfo-0' random-id='96c5ad8d-8b38-b23b-a34a-6f9db6c91287'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:&#92;&quot;STUDENT_ID&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;GENDER&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;RACE&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;HISPANIC_IND&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;EVER_CONCURRENT_IND&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;EVER_PELL_ELIGIBLE_IND&#92;&quot;,&#92;&quot;value&#92;&quot;:0},{&#92;&quot;&#92;&quot;:&#92;&quot;FIRST_ENROLLED&#92;&quot;,&#92;&quot;value&#92;&quot;:8854},{&#92;&quot;&#92;&quot;:&#92;&quot;TRANSFER_CREDITS&#92;&quot;,&#92;&quot;value&#92;&quot;:23640}]&quot;' data-total-rows='8' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;value&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "45c49113239b8623140d98efd6a4842a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"32-unique-values-analysis\">3.2 Unique Values Analysis</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "d2283a969677b95630faf91b9e2cfe69",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "iLit",
+      "code_hash": "9b4a8fa09817a6ac54cf3ab93bb8f560",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "STUDENT_ID: [6053497. 5332847. 5404310. ... 6190074. 5515218. 5694131.]\nGRAD_APPL_DATE: ['23-APR-18  09:57 AM' '10-AUG-17  02:27 PM' '15-DEC-16  03:46 PM' ...\n '04-NOV-21  03:36 PM' '17-DEC-21  12:31 PM' '24-FEB-22  08:46 AM']\nGRADUATION_DATE: ['06-MAY-21  12:00 AM' '07-AUG-21  12:00 AM' '04-APR-21  12:00 AM'\n '01-JUN-21  12:00 AM' '06-MAY-20  12:00 AM' nan]\nGRADUATED_IND: ['N' 'Y']\nTOTAL_CREDITS: [ 89.    69.    94.    16.    27.     6.    38.    62.    59.     3.\n  93.    21.     5.    50.    56.    41.      nan  19.    23.    22.\n  71.    36.    49.    43.    19.98  65.    13.    47.    45.    10.\n  72.    51.    29.    53.    18.    60.    70.    80.    75.    67.\n  77.   114.     9.    31.    85.    28.    30.    39.    34.     8.\n   0.    25.    40.     7.    64.     8.67  74.    54.    42.    92.\n  73.    32.    14.    20.    46.    84.    66.    68.    17.   131.\n  63.   107.    37.    26.    11.    48.    55.     4.   123.    44.\n  78.    35.    83.67 101.    58.    12.    52.    74.66  15.    55.84\n  86.    24.33  57.    24.    98.   108.    98.68  33.   104.    36.33\n  83.    87.    76.   106.   119.    95.    61.     4.5  100.   140.64\n 102.    88.    82.     1.33 110.    14.66  53.99  91.    58.33   1.\n  86.32  55.33 125.   134.   124.   103.   113.    96.    66.66 190.7\n  90.   129.    79.    32.67  99.    66.98  81.    51.66 137.    80.66\n 121.   102.68  69.32  94.67  38.66   7.33 139.   126.    61.66 112.\n 167.    55.68  97.   116.   122.   132.   150.   142.   156.   105.\n 118.   115.     2.    65.5  134.67 110.99 149.   143.   145.   138.\n 117.   107.33  61.33 200.    86.66 133.    77.67 120.   130.    57.46\n  39.5  165.   127.   128.   103.66 109.65 110.33 122.67  36.66  65.33\n 132.67  80.33 160.    68.33  82.68 135.   183.   109.   144.07 136.64\n  70.67 179.    85.33 152.   123.68  43.32  81.66  82.66 147.66  89.32\n 111.    77.31 155.   103.98 117.5   81.67 145.5   73.33  45.66  36.32\n  52.33  84.65 114.5   89.33  66.68 136.    75.64  67.33  77.01  64.33\n 164.    48.34  61.5   66.32 101.99  83.32  63.66]\nDEGREE_TYPE: ['Associates' 'Unknown' 'Certificate']\nMAJOR: ['Engineering/Mechanical' 'Business Management'\n 'Computer Sci & Info Systems' 'Visual Arts - Design Spec.' 'Business'\n 'Social Work' 'Graphic Communications' 'Physics' 'American Sign Language'\n 'General Studies' 'Pre-Health Sciences' 'Psychology'\n 'Heat Vent AirCond and Ref-Appr' 'Engineering/Computer'\n 'Architectural Technology' 'Construction Management'\n 'Marketing Management' 'Engineering/Civil/Environ' 'Biology'\n 'Engineering/Electrical' 'Electrical, Independent - Appr' 'Economics'\n 'Criminal Justice' 'Education' 'Communication Studies'\n 'Pharmacy Technician' 'Accounting' 'Business Administration'\n 'Visual Arts- Animation' 'Homeland Security/EmergencyMgt'\n 'Transition to Teaching/ARL' 'Visual Arts Illustration Spec'\n 'Personal Professional Training' 'Network Engineer'\n 'Pre-Medical Health Sciences' 'Music' 'Certified Nursing Assistant'\n 'Sociology' 'Film Production Technician' 'Diagnostic Medical Sonography'\n 'English' 'Geography' 'Writing' 'Finance and Credit'\n 'Environmental Sci & Sustain' 'Engr Design/Drafting Tech'\n 'Aviation Maintenance' 'Auto Collision Repair/Refinish'\n 'Aviation Dispatch' 'Aero/Avait - Prof Pilot Fixed' 'Mathematics'\n 'Political Science' 'History' 'Fashion Design' 'Theatre Arts'\n 'Family and Human Studies' 'Emergency Medical Tech'\n 'Non-Destructive Testing Tech' 'Media Studies & Journalism'\n 'Technical Studies' 'Geology' 'Aero/Aviation - Aviation Admin'\n 'Collison,Maintenance,Lt Repair' 'Engineering/Chemical' 'Chemistry'\n 'Welding Fabrication/Inspection' 'Diesel Systems Technology'\n 'Visual Arts - Photograph Spec' 'Mechanical Engineering Technol'\n 'Anthropology' 'Energy Management' 'Geographic Science' 'Interior Design'\n 'Media Music' 'Mining Engineering' 'Geological Engineering'\n 'Business & Personal Computing' 'Music Recording Technology'\n 'Stage Hands, JATC - Appr' 'Humanities' 'Short Term Intensive Trng'\n 'Game Design & Development' 'MIDI' 'Fitness Technician'\n 'Paralegal Training' 'Respiratory Therapy'\n 'Engineering/Materials Science' 'Software Development' 'Nanotechnology'\n 'Fashion Merchandising' 'Medical Assistant'\n 'Arch Tech - CAD/BIM Emphasis' 'Chemistry/Physical Sci'\n 'Hospitality Management' 'Adv Practice Medical Assist'\n 'General Engineering' 'Exercise Sci/Kinesiology' 'Pharmacy Tech & Train'\n 'Web Graphic Design' 'Biotechnology Technician' 'Dental Hygiene'\n 'Aircraft Electronics' 'Automotive Technician' 'Visual Arts - Web Design'\n 'Culinary Arts' 'Sustainable Building Construct' 'Writing Studies'\n 'General Nursing' 'English Studies' 'Diesel Systems Tech - Appr'\n 'General Education' 'Engr Draft & Manufacture Tech'\n 'Visual Arts - Multimedia Spec' 'Auto Collision Repair'\n 'Technical Apparel Design' 'Machining Technology'\n 'Plumbing, Independent - Appr' 'General Studies/Undecided' 'Nursing'\n 'International Global Studies' 'Plumber/Pipefitter, JATC-Appr'\n 'Electronics Engineering Tech' 'Journalism Digital Media'\n 'Network Systems' 'Metallurgical Engineering'\n 'Auto Maintenance & Lt Repair' 'Network and System Admin'\n 'Network Routing and Switching' 'Computer Science Fundamentals'\n 'Continuing Education' 'Non-Destruct Test Ultrasonics'\n 'Web Programming & Development' 'Desktop Support Tech'\n 'Electric Power Technology' 'Creative Arts Entrepreneurship'\n 'Ethical Hack/Digital Forensics' 'Motorcycle & Outdoor Pow Equip'\n 'Cabinet Making Furniture Const' 'Biotechnology'\n 'Motion Graphics/Visual Effects' 'Lineworker Apprentice'\n 'Database Information Systems' 'Occupational Therapy Assistant'\n 'Mortuary Science' 'General Studies - Undecided'\n 'Windows System Administration' 'Radiologic Technology'\n 'Accounting Essentials' 'Intermediate Accounting'\n 'Video/Radio Production' 'American Sign Lang/Interpret'\n 'Linux System Administration' 'Health Sciences'\n 'Info Assurance & Cyber Defense' 'Network and Cyber Security'\n 'Manufacturing Engineering Tech' 'Business Basics' 'Marketing Essentials'\n 'Retail Management' 'Geographic Information Tech'\n 'Geographic Information Science' 'Surgical Technician'\n 'Non-Destruct Test Radiography' 'Electronic Publishing'\n 'Surveying & Geomatics' 'Surveying Technology' 'Management Essentials'\n 'Digital Marketing' 'Registered Nursing' 'Geospatial Technology'\n 'Geographic Info Sys' 'Microscopy' 'Engineering/Manufacturing'\n 'Hospitality Basics' 'Communication' 'Pre-Engineering/Mechanical'\n 'Genealogy' 'Small Business Ownership' 'Environmental Geology'\n 'Cultural Resource Management' 'Auto Refinishing'\n 'Automotive and Related Techgy' 'Computer Programming/Design'\n 'Personal Apprenticeship Trng' 'Non-Destruct Test Eddy Current'\n 'Pre-Teacher Education' 'Software Engineering' 'Paraeducation'\n 'Mobile Publishing' 'Marketing Advanced' 'Moblie Application Development'\n 'Atmospheric Sciences' 'Surveying' 'Computer Science'\n 'International Study - Business']\nDEPARTMENT: ['Unknown' 'Business Management' 'Comp. Sciences & Info. Systems'\n 'Visual Arts & Design' 'Social Work' 'Physics' 'Psychology'\n 'Apprenticeship' 'Architectural Technology' 'Construction Management'\n 'Marketing Management' 'Biology' 'Economics'\n 'Criminal Justice/Inst. Pub Saf' 'Education, Pre-Teacher' 'Accounting'\n 'Continuing Ed. Credit' 'Performing Arts'\n 'Health Care Technologies (SAT)' 'Sociology' 'Finance and Credit'\n 'Engineering Design/Drafting' 'Aviation Tech - Maintenance'\n 'Automotive Collision Repair' 'Mathematics' 'Political Science'\n 'History and Anthropology' 'Fashion Institute' 'Family and Human Studies'\n 'Non-Destructive Testing' 'Chemistry' 'Welding'\n 'Diesel Systems Technology' 'Anthropology' 'Respiratory Therapy'\n 'Exercise Science' 'Biotechnology' 'Dental Hygiene' 'Culinary Arts'\n 'Communication' 'English' 'Nursing' 'Engineering'\n 'Computer Networking Tech (SAT)' 'Occupational Therapy Assistant'\n 'Mortuary Science' 'Radiologic Technology' 'Huma., Language & Culture'\n 'Health Science' 'Geosciences']\nCOLLEGE: ['Unknown' 'Business' 'Arts, Comm, & New Media'\n 'Humanities & Social Sciences' 'Science, Math & Engineering'\n 'Provost Office' 'Applied Tech &Tech Specialties' 'Workforce Development'\n 'Health Sciences']\nREQUIRED_HOURS: [73.   nan 69.  61.  63.  74.  60.  67.  71.  64.  62.  65.  18.  68.\n 30.   5.  66.  33.  23.  88.   6.  32.  36.  70.  25.  21.  17.  26.\n 49.  77.5 27.  89.  37.  34.  72.  81.  76.  24.  16.   7.  31.  28.\n 20.  35.  86.  77.  39. ]\nFULLY_ONLINE_IND: ['U' 'N']\nAID_ELIGIBLE_IND: ['U' 'N' 'Y']\nHONORS: [nan 'High Honors' 'Honors' 'High Honors, Honors']\nOVERALL_GPA: [3.633 2.357 3.779 ... 0.61  1.969 1.897]\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "ZHCJ",
+      "code_hash": "bf104be9779d5d4107281a972069d2fe",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "STUDENT_ID: [6336689 1039474 6381349 ... 7043976 7050003 7092220]\nGENDER: ['Female' 'Male' 'Unknown']\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "RACE: ['White' 'Prefer Not to Say' 'More than One' 'Asian'\n 'Native Hawaiian or Pacific Islander' 'Black or African American'\n 'American Indian or Alaskan Native']\nHISPANIC_IND: ['Y' 'N']\nEVER_CONCURRENT_IND: ['Y' 'N']\nEVER_PELL_ELIGIBLE_IND: ['N' 'Y']\nFIRST_ENROLLED: ['21-AUG-19  12:00 AM' '29-AUG-01  12:00 AM' '13-JAN-20  12:00 AM'\n '27-SEP-93  12:00 AM' '25-AUG-20  12:00 AM' '26-SEP-94  12:00 AM'\n '11-JAN-21  12:00 AM' '23-AUG-99  12:00 AM' '19-JUN-89  12:00 AM' nan\n '23-AUG-17  12:00 AM' '22-AUG-18  12:00 AM' '24-AUG-21  12:00 AM'\n '10-JAN-22  12:00 AM' '12-JAN-15  12:00 AM' '14-JAN-13  12:00 AM'\n '23-SEP-96  12:00 AM' '25-AUG-04  12:00 AM' '22-AUG-07  12:00 AM'\n '20-AUG-08  12:00 AM' '26-AUG-09  12:00 AM' '30-SEP-91  12:00 AM'\n '24-AUG-11  12:00 AM' '13-JAN-14  12:00 AM' '23-AUG-00  12:00 AM'\n '22-AUG-12  12:00 AM' '20-AUG-14  12:00 AM' '07-JAN-08  12:00 AM'\n '08-JAN-01  12:00 AM' '10-JAN-11  12:00 AM' '07-JAN-19  12:00 AM'\n '24-SEP-90  12:00 AM' '21-AUG-02  12:00 AM' '24-AUG-05  12:00 AM'\n '20-AUG-03  12:00 AM' '14-MAY-12  12:00 AM' '12-MAY-08  12:00 AM'\n '25-AUG-10  12:00 AM' '18-MAY-15  12:00 AM' '07-JAN-02  12:00 AM'\n '23-AUG-06  12:00 AM' '10-JAN-00  12:00 AM' '08-JAN-07  12:00 AM'\n '17-MAY-10  12:00 AM' '12-JAN-04  12:00 AM' '19-MAY-03  12:00 AM'\n '09-JAN-17  12:00 AM' '22-SEP-97  12:00 AM' '11-JAN-16  12:00 AM'\n '10-JAN-05  12:00 AM' '03-JAN-96  12:00 AM' '09-JAN-12  12:00 AM'\n '26-AUG-15  12:00 AM' '24-AUG-16  12:00 AM' '11-JAN-10  12:00 AM'\n '24-AUG-98  12:00 AM' '08-JAN-18  12:00 AM' '21-AUG-13  12:00 AM'\n '28-SEP-81  12:00 AM' '30-SEP-86  12:00 AM' '05-JAN-98  12:00 AM'\n '09-JAN-06  12:00 AM' '18-MAY-20  12:00 AM' '26-SEP-88  12:00 AM'\n '20-MAY-13  12:00 AM' '23-MAR-82  12:00 AM' '13-MAY-19  12:00 AM'\n '11-JAN-99  12:00 AM' '15-MAY-00  12:00 AM' '26-MAR-91  12:00 AM'\n '25-SEP-95  12:00 AM' '30-MAR-92  12:00 AM' '02-JAN-90  12:00 AM'\n '04-JAN-95  12:00 AM' '04-JAN-94  12:00 AM' '26-MAR-90  12:00 AM'\n '15-MAY-06  12:00 AM' '17-MAY-21  12:00 AM' '28-SEP-92  12:00 AM'\n '14-MAY-18  12:00 AM' '12-JAN-09  12:00 AM' '14-MAY-07  12:00 AM'\n '20-MAY-02  12:00 AM' '16-MAY-05  12:00 AM' '18-MAY-09  12:00 AM'\n '06-JAN-97  12:00 AM' '19-MAY-14  12:00 AM' '03-JAN-89  12:00 AM'\n '31-MAR-98  12:00 AM' '06-JAN-92  12:00 AM' '25-SEP-89  12:00 AM'\n '25-SEP-84  12:00 AM' '29-MAR-94  12:00 AM' '30-SEP-80  12:00 AM'\n '17-MAY-04  12:00 AM' '03-JAN-83  12:00 AM' '15-MAY-17  12:00 AM'\n '16-MAY-16  12:00 AM' '16-MAY-11  12:00 AM' '16-MAY-22  12:00 AM'\n '23-AUG-22  12:00 AM' '03-JAN-84  12:00 AM' '04-JAN-93  12:00 AM'\n '19-JUN-95  12:00 AM' '28-MAR-95  12:00 AM' '23-SEP-75  12:00 AM'\n '29-MAR-93  12:00 AM' '02-JAN-79  12:00 AM' '21-JUN-93  12:00 AM'\n '06-JAN-03  12:00 AM' '01-APR-96  12:00 AM' '01-JUN-99  12:00 AM'\n '02-JAN-91  12:00 AM' '27-SEP-77  12:00 AM' '01-APR-97  12:00 AM'\n '23-JUN-97  12:00 AM' '03-JAN-85  12:00 AM' '24-JUN-96  12:00 AM'\n '05-JAN-87  12:00 AM' '03-JAN-80  12:00 AM' '25-SEP-72  12:00 AM'\n '27-MAR-89  12:00 AM' '28-SEP-87  12:00 AM' '21-MAY-01  12:00 AM'\n '21-MAR-83  12:00 AM' '26-SEP-83  12:00 AM' '24-MAR-81  12:00 AM'\n '02-JAN-86  12:00 AM' '24-SEP-85  12:00 AM' '27-SEP-82  12:00 AM'\n '28-SEP-70  12:00 AM' '05-JAN-76  12:00 AM' '28-MAR-88  12:00 AM'\n '22-JUN-92  12:00 AM' '04-JAN-88  12:00 AM' '26-MAR-84  12:00 AM'\n '25-SEP-73  12:00 AM' '03-JUN-68  12:00 AM' '19-MAR-73  12:00 AM'\n '05-JAN-81  12:00 AM' '24-MAR-80  12:00 AM' '02-JAN-75  12:00 AM'\n '04-JAN-82  12:00 AM' '22-JUN-98  12:00 AM' '20-JUN-94  12:00 AM']\nTRANSFER_CREDITS: [   nan  37.    15.     9.     6.    81.    17.     3.    30.67  12.\n  30.    13.     0.    34.     4.    29.    41.    74.    52.    87.\n  54.    43.     8.    16.    40.     2.67  19.    70.    23.    33.\n  11.    65.    55.     7.    31.    27.    38.    16.5    5.    58.\n  36.   120.    20.     7.5   21.    22.5   32.    42.    50.    24.\n  45.    28.5   99.    18.    47.    39.    19.33  27.98  48.     1.33\n  10.    77.    49.    27.5   41.5   14.    35.    28.    68.5   75.\n  35.67  45.5   22.   116.    57.    64.    44.    63.    25.    67.\n  56.    38.5   26.   121.    68.    60.    46.    96.    34.5   76.\n  51.    61.    72.    31.5   89.    73.    66.     2.    80.    69.\n  71.    18.5   36.5   59.    79.5   62.   125.5   20.5  109.    84.\n  53.    13.5   43.5   78.   128.   114.    50.25  10.66   1.    85.\n 115.   112.     8.66 102.    70.5   11.33  45.67  41.98  92.    12.5\n  46.5  100.    15.5   49.5   48.5   97.    76.5   55.5   56.5   23.5\n  82.    88.    18.01  82.65  83.     8.5   51.5   24.66 106.     3.33\n  60.63   6.66  32.65  54.5  123.   157.   108.5   66.5   11.5   53.5\n 107.    67.1  107.25  98.   159.    42.64  18.67  24.67  58.01  64.5\n 108.    56.64  29.99  10.68 114.5   13.34  35.5   60.5   31.99 138.5\n  79.   126.    24.5   94.   118.    82.5   95.    34.68 111.5   86.5\n  47.5   26.5   93.    17.5   20.65  91.    28.02  52.5  101.    13.33\n  33.99  90.5   59.31   8.67  61.5   19.5   86.    37.5   63.5   67.5\n 152.   132.    97.5   80.5   24.65  90.   135.    57.5   30.5   29.5\n 113.    74.5  234.    89.5   18.66   9.33  12.66  17.32  33.5  103.\n  14.66  10.5  136.    40.5   76.75  32.5   71.5   73.5 ]\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "ROlb",
+      "code_hash": "b39084f8a54ba849df8da825beb0039f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"33-data-consistency-checks\">3.3 Data Consistency Checks</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "qnkX",
+      "code_hash": "9a47992bce140c2bae3f56d7b5ada305",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='qnkX-0' random-id='a0474eac-c3c7-9230-2cde-f91167237b48'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:0,&#92;&quot;STUDENT_ID&#92;&quot;:6053497.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;23-APR-18  09:57 AM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:89.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Engineering/Mechanical&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:73.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.633},{&#92;&quot;&#92;&quot;:1,&#92;&quot;STUDENT_ID&#92;&quot;:5332847.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;10-AUG-17  02:27 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:69.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.357},{&#92;&quot;&#92;&quot;:2,&#92;&quot;STUDENT_ID&#92;&quot;:5332847.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;15-DEC-16  03:46 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:69.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Computer Sci &amp; Info Systems&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Comp. Sciences &amp; Info. Systems&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.357},{&#92;&quot;&#92;&quot;:3,&#92;&quot;STUDENT_ID&#92;&quot;:5404310.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;23-APR-18  03:00 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:94.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Visual Arts - Design Spec.&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Visual Arts &amp; Design&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Arts, Comm, &amp; New Media&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:69.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.779},{&#92;&quot;&#92;&quot;:4,&#92;&quot;STUDENT_ID&#92;&quot;:5816064.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;13-JAN-17  12:43 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:16.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:1.354},{&#92;&quot;&#92;&quot;:5,&#92;&quot;STUDENT_ID&#92;&quot;:4033773.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;07-DEC-16  01:06 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:27.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Social Work&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Social Work&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Humanities &amp; Social Sciences&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:63.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:1.387},{&#92;&quot;&#92;&quot;:6,&#92;&quot;STUDENT_ID&#92;&quot;:4687986.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;04-MAY-17  01:11 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:6.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Visual Arts - Design Spec.&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Visual Arts &amp; Design&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Arts, Comm, &amp; New Media&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:69.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:4.0},{&#92;&quot;&#92;&quot;:7,&#92;&quot;STUDENT_ID&#92;&quot;:4687986.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;01-MAR-17  01:37 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:6.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Graphic Communications&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Visual Arts &amp; Design&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Arts, Comm, &amp; New Media&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:4.0},{&#92;&quot;&#92;&quot;:8,&#92;&quot;STUDENT_ID&#92;&quot;:5827117.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;23-APR-18  09:10 AM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:38.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Physics&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Physics&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Science, Math &amp; Engineering&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:63.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.55},{&#92;&quot;&#92;&quot;:10,&#92;&quot;STUDENT_ID&#92;&quot;:6035808.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;15-DEC-17  04:12 PM&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;06-MAY-21  12:00 AM&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:59.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;American Sign Language&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:63.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.866}]&quot;' data-total-rows='1577' data-total-columns='14' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;STUDENT_ID&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;GRAD_APPL_DATE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;GRADUATION_DATE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;GRADUATED_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;TOTAL_CREDITS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;DEGREE_TYPE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;MAJOR&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;DEPARTMENT&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;COLLEGE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;REQUIRED_HOURS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;FULLY_ONLINE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;AID_ELIGIBLE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;HONORS&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;OVERALL_GPA&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Unmatched students: 1577\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "TqIu",
+      "code_hash": "50ad146e3fa3bfe806a6863f15deaa8f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"4-data-validation-business-logic\">4. Data Validation &amp; Business Logic</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Vxnm",
+      "code_hash": "842d5ce126f6a61a73331d2e54f1b800",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "C:\\Users\\cschrad\\AppData\\Local\\Temp\\marimo_5968\\__marimo__cell_Vxnm_.py:2: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.\n  graduation['GRADUATION_DATE'] = pd.to_datetime(graduation['GRADUATION_DATE'])\nC:\\Users\\cschrad\\AppData\\Local\\Temp\\marimo_5968\\__marimo__cell_Vxnm_.py:3: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.\n  graduation['GRAD_APPL_DATE'] = pd.to_datetime(graduation['GRAD_APPL_DATE'])\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "DnEU",
+      "code_hash": "62c113a0b47b5763ebe5723046f287f1",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"41-date-logic-validation\">4.1 Date Logic Validation</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ulZA",
+      "code_hash": "6ec470328d05dc6597dd3f65ab1af86a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='ulZA-0' random-id='62bde3a6-72a7-d71e-9a7d-ebe1c9cff460'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:212,&#92;&quot;STUDENT_ID&#92;&quot;:4375506.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-19T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:123.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Certificate&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Graphic Communications&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:32.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.867},{&#92;&quot;&#92;&quot;:236,&#92;&quot;STUDENT_ID&#92;&quot;:5961741.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-12T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:70.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Psychology&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Psychology&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Humanities &amp; Social Sciences&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.97},{&#92;&quot;&#92;&quot;:530,&#92;&quot;STUDENT_ID&#92;&quot;:6000101.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-11T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:45.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.82},{&#92;&quot;&#92;&quot;:531,&#92;&quot;STUDENT_ID&#92;&quot;:6000101.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-11T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:45.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.82},{&#92;&quot;&#92;&quot;:537,&#92;&quot;STUDENT_ID&#92;&quot;:5748591.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-11T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:95.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.956},{&#92;&quot;&#92;&quot;:566,&#92;&quot;STUDENT_ID&#92;&quot;:5863580.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-18T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:72.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.203},{&#92;&quot;&#92;&quot;:576,&#92;&quot;STUDENT_ID&#92;&quot;:6004742.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-17T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:102.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.441},{&#92;&quot;&#92;&quot;:577,&#92;&quot;STUDENT_ID&#92;&quot;:6004742.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-17T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:102.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Pre-Medical Health Sciences&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Biology&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Science, Math &amp; Engineering&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.441},{&#92;&quot;&#92;&quot;:619,&#92;&quot;STUDENT_ID&#92;&quot;:4445870.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-10T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:76.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Visual Arts - Design Spec.&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Visual Arts &amp; Design&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Arts, Comm, &amp; New Media&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:69.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.986},{&#92;&quot;&#92;&quot;:643,&#92;&quot;STUDENT_ID&#92;&quot;:6217927.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-19T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:48.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.177}]&quot;' data-total-rows='3203' data-total-columns='14' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;STUDENT_ID&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;GRAD_APPL_DATE&quot;,[&quot;datetime&quot;,&quot;datetime64[ns]&quot;]],[&quot;GRADUATION_DATE&quot;,[&quot;datetime&quot;,&quot;datetime64[ns]&quot;]],[&quot;GRADUATED_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;TOTAL_CREDITS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;DEGREE_TYPE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;MAJOR&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;DEPARTMENT&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;COLLEGE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;REQUIRED_HOURS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;FULLY_ONLINE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;AID_ELIGIBLE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;HONORS&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;OVERALL_GPA&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Illogical date records: 3203\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "ecfG",
+      "code_hash": "a168150da655ba53bed09ebe5c73eacd",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"42-credit-requirements-validation\">4.2 Credit Requirements Validation</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Pvdt",
+      "code_hash": "167ccbb0a40df223890129c304083da1",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='Pvdt-0' random-id='ee593522-5b6d-2ad4-6611-2ca38fd36379'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:530,&#92;&quot;STUDENT_ID&#92;&quot;:6000101.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-11T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:45.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.82},{&#92;&quot;&#92;&quot;:531,&#92;&quot;STUDENT_ID&#92;&quot;:6000101.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-11T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:45.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.82},{&#92;&quot;&#92;&quot;:643,&#92;&quot;STUDENT_ID&#92;&quot;:6217927.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-19T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:48.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.177},{&#92;&quot;&#92;&quot;:660,&#92;&quot;STUDENT_ID&#92;&quot;:5898076.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-12T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:51.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.524},{&#92;&quot;&#92;&quot;:688,&#92;&quot;STUDENT_ID&#92;&quot;:6198621.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-13T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:15.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Political Science&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Political Science&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Humanities &amp; Social Sciences&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:4.0},{&#92;&quot;&#92;&quot;:808,&#92;&quot;STUDENT_ID&#92;&quot;:3757553.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-17T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:49.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Sociology&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Sociology&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Humanities &amp; Social Sciences&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.039},{&#92;&quot;&#92;&quot;:809,&#92;&quot;STUDENT_ID&#92;&quot;:3757553.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-17T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:49.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.039},{&#92;&quot;&#92;&quot;:830,&#92;&quot;STUDENT_ID&#92;&quot;:5260726.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:21.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.643},{&#92;&quot;&#92;&quot;:866,&#92;&quot;STUDENT_ID&#92;&quot;:6465160.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2020-12-15T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:57.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Hospitality Management&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:62.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.616},{&#92;&quot;&#92;&quot;:963,&#92;&quot;STUDENT_ID&#92;&quot;:5650031.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-19T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-08-07T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:55.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Political Science&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Political Science&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Humanities &amp; Social Sciences&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.831}]&quot;' data-total-rows='735' data-total-columns='14' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;STUDENT_ID&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;GRAD_APPL_DATE&quot;,[&quot;datetime&quot;,&quot;datetime64[ns]&quot;]],[&quot;GRADUATION_DATE&quot;,[&quot;datetime&quot;,&quot;datetime64[ns]&quot;]],[&quot;GRADUATED_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;TOTAL_CREDITS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;DEGREE_TYPE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;MAJOR&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;DEPARTMENT&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;COLLEGE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;REQUIRED_HOURS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;FULLY_ONLINE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;AID_ELIGIBLE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;HONORS&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;OVERALL_GPA&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Below credits but graduated: 735\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "ZBYS",
+      "code_hash": "916bc14bcc413fdc438ab2f09f15d49a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"43-gpa-validation\">4.3 GPA Validation</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "aLJB",
+      "code_hash": "485077fc938f314c466d57b7add53f29",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Records with GPA > 4.0 or GPA < 0: 0\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "nHfw",
+      "code_hash": "8189e0f4fe5df46728c8f0f0e950332d",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"44-duplicate-check\">4.4 Duplicate Check</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "xXTn",
+      "code_hash": "2c9ba272e801a85171eab250ea0d3439",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Duplicate records: 6\nDuplicate student IDs: 1375\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "AjVT",
+      "code_hash": "b7403594a8ed660f419f67b007f466c7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"5creating-new-fields\">5.Creating New Fields</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "pHFh",
+      "code_hash": "cda7cf4c272b9bd6fdcb73cf8891ed50",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "NCOB",
+      "code_hash": "fc1939f054cb10693de6b96cf3351017",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='NCOB-0' random-id='36cd3fe7-484d-0229-0aa9-ac554fa7d833'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;,&#92;&quot;count&#92;&quot;:4056},{&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Summer 2021&#92;&quot;,&#92;&quot;count&#92;&quot;:1622},{&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;,&#92;&quot;count&#92;&quot;:146}]&quot;' data-total-rows='3' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;count&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;SEMESTER&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "aqbW",
+      "code_hash": "1bdc4a47950fd74b3f3c2ebc6a8e7ddd",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='aqbW-0' random-id='085dbb30-f304-ec95-aade-91541f28f358'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:1192,&#92;&quot;STUDENT_ID&#92;&quot;:6285407.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2019-12-16T12:16:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-04-04T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:44.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Culinary Arts&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Culinary Arts&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:64.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.14,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;},{&#92;&quot;&#92;&quot;:2833,&#92;&quot;STUDENT_ID&#92;&quot;:6313533.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:56.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.904,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;},{&#92;&quot;&#92;&quot;:2834,&#92;&quot;STUDENT_ID&#92;&quot;:6633363.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-04T10:37:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:31.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Certificate&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Education&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:34.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.545,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;},{&#92;&quot;&#92;&quot;:2895,&#92;&quot;STUDENT_ID&#92;&quot;:6417147.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-06-02T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:70.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.704,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;},{&#92;&quot;&#92;&quot;:2896,&#92;&quot;STUDENT_ID&#92;&quot;:6417147.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-27T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:70.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies - Undecided&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.704,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;},{&#92;&quot;&#92;&quot;:2897,&#92;&quot;STUDENT_ID&#92;&quot;:6417147.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-14T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:70.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Certificate&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Education&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:34.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.704,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;},{&#92;&quot;&#92;&quot;:2899,&#92;&quot;STUDENT_ID&#92;&quot;:6443117.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-06-02T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:35.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Certificate&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Education&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:34.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.1,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;},{&#92;&quot;&#92;&quot;:3333,&#92;&quot;STUDENT_ID&#92;&quot;:6358305.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:46.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Certificate&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Education&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:34.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.53,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;},{&#92;&quot;&#92;&quot;:3334,&#92;&quot;STUDENT_ID&#92;&quot;:6358305.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2020-10-27T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:46.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies - Undecided&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.53,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;},{&#92;&quot;&#92;&quot;:3698,&#92;&quot;STUDENT_ID&#92;&quot;:6308045.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-06-01T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:55.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.444,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Other&#92;&quot;}]&quot;' data-total-rows='146' data-total-columns='15' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;STUDENT_ID&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;GRAD_APPL_DATE&quot;,[&quot;datetime&quot;,&quot;datetime64[ns]&quot;]],[&quot;GRADUATION_DATE&quot;,[&quot;datetime&quot;,&quot;datetime64[ns]&quot;]],[&quot;GRADUATED_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;TOTAL_CREDITS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;DEGREE_TYPE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;MAJOR&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;DEPARTMENT&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;COLLEGE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;REQUIRED_HOURS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;FULLY_ONLINE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;AID_ELIGIBLE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;HONORS&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;OVERALL_GPA&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;SEMESTER&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "TRpd",
+      "code_hash": "56df638fd51112739a86fac5af71d3ed",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"6-dashboard-data-preparation\">6. Dashboard Data Preparation</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "TXez",
+      "code_hash": "fba642dfc7667612f692794a2e9c3b3d",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "dNNg",
+      "code_hash": "9a4c1ff5e2a0d15a3812052c95daab6e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "yCnT",
+      "code_hash": "ee2d0c6e53a7df5fd50a3bce895d8829",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<pre style='font-size: 12px'>Index([&#x27;STUDENT_ID&#x27;, &#x27;GRAD_APPL_DATE&#x27;, &#x27;GRADUATION_DATE&#x27;, &#x27;GRADUATED_IND&#x27;,\n       &#x27;TOTAL_CREDITS&#x27;, &#x27;DEGREE_TYPE&#x27;, &#x27;MAJOR&#x27;, &#x27;DEPARTMENT&#x27;, &#x27;COLLEGE&#x27;,\n       &#x27;REQUIRED_HOURS&#x27;, &#x27;FULLY_ONLINE_IND&#x27;, &#x27;AID_ELIGIBLE_IND&#x27;, &#x27;HONORS&#x27;,\n       &#x27;OVERALL_GPA&#x27;, &#x27;SEMESTER&#x27;, &#x27;GENDER&#x27;, &#x27;RACE&#x27;, &#x27;HISPANIC_IND&#x27;,\n       &#x27;EVER_CONCURRENT_IND&#x27;, &#x27;EVER_PELL_ELIGIBLE_IND&#x27;, &#x27;FIRST_ENROLLED&#x27;,\n       &#x27;TRANSFER_CREDITS&#x27;, &#x27;ILLOGICAL_DATES&#x27;, &#x27;BELOW_CREDITS&#x27;, &#x27;MISSING&#x27;],\n      dtype=&#x27;object&#x27;)</pre>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "wlCL",
+      "code_hash": "963165c9933d4c2d2ecf0f86026b3a84",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='wlCL-0' random-id='d06ee841-6019-044a-19b8-56d72e1e0911'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:&#92;&quot;STUDENT_ID&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;float64&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;GRAD_APPL_DATE&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;datetime64[ns]&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;GRADUATION_DATE&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;datetime64[ns]&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;GRADUATED_IND&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;TOTAL_CREDITS&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;float64&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;DEGREE_TYPE&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;MAJOR&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;DEPARTMENT&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;COLLEGE&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;object&#92;&quot;},{&#92;&quot;&#92;&quot;:&#92;&quot;REQUIRED_HOURS&#92;&quot;,&#92;&quot;value&#92;&quot;:&#92;&quot;float64&#92;&quot;}]&quot;' data-total-rows='25' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;value&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "kqZH",
+      "code_hash": "879f663a4c07ed18804b063e25136f20",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"7-export-quality-summary\">7. Export Quality Summary</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "wAgl",
+      "code_hash": "522cf54c7b5754887590876c7db44ab0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='wAgl-0' random-id='d0037805-c5e6-4a0b-231a-f14ed2de040f'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Issue Type&#92;&quot;:&#92;&quot;Illogical Dates&#92;&quot;,&#92;&quot;Record Count&#92;&quot;:3203},{&#92;&quot;Issue Type&#92;&quot;:&#92;&quot;Unmatched Students&#92;&quot;,&#92;&quot;Record Count&#92;&quot;:1577},{&#92;&quot;Issue Type&#92;&quot;:&#92;&quot;Below Required Credits&#92;&quot;,&#92;&quot;Record Count&#92;&quot;:735},{&#92;&quot;Issue Type&#92;&quot;:&#92;&quot;Missing Student IDs&#92;&quot;,&#92;&quot;Record Count&#92;&quot;:112}]&quot;' data-total-rows='4' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;Issue Type&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;Record Count&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "rEll",
+      "code_hash": "a0ca21a229d1466fbf8560c07aff22f7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Dashboard data exported: 5824 records\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "dGlV",
+      "code_hash": "accc485f0ead3de8a39305b23f25e3c2",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"summary\">Summary</h2>\n<span class=\"paragraph\">This analysis identified several data quality issues:</span>\n<ul>\n<li>Date inconsistencies (application after graduation)</li>\n<li>Students graduating below credit requirements</li>\n<li>Unmatched student records between datasets</li>\n</ul></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bEsS",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "xFGr",
+      "code_hash": "93f74a8e7e2749bf80d70a389fe2f29b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<pre style='font-size: 12px'>&lt;DatetimeArray&gt;\n[&#x27;2021-04-04 00:00:00&#x27;, &#x27;2021-06-01 00:00:00&#x27;, &#x27;NaT&#x27;]\nLength: 3, dtype: datetime64[ns]</pre>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "CuoC",
+      "code_hash": "0eea8bd839923936589d302053e1ed7f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='CuoC-0' random-id='c276fe31-4e33-6880-223f-06367ccac0f4'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:768,&#92;&quot;STUDENT_ID&#92;&quot;:5669071.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-14T12:43:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:56.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Graphic Communications&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Visual Arts &amp; Design&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Arts, Comm, &amp; New Media&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.823,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:1320,&#92;&quot;STUDENT_ID&#92;&quot;:5264436.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-07-08T14:33:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:56.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Pre-Medical Health Sciences&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Biology&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Science, Math &amp; Engineering&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.87,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:1475,&#92;&quot;STUDENT_ID&#92;&quot;:null,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-14T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:139.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Music Recording Technology&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Performing Arts&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Arts, Comm, &amp; New Media&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:65.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.755,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:1653,&#92;&quot;STUDENT_ID&#92;&quot;:6651843.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-12T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:37.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Social Work&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Social Work&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Humanities &amp; Social Sciences&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:63.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:4.0,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:1684,&#92;&quot;STUDENT_ID&#92;&quot;:3277843.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-12T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:132.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Pre-Health Sciences&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.455,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:1741,&#92;&quot;STUDENT_ID&#92;&quot;:5319722.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-10T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:74.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.042,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:1796,&#92;&quot;STUDENT_ID&#92;&quot;:6063976.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-17T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:79.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Engineering/Civil/Environ&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:71.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.225,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:1881,&#92;&quot;STUDENT_ID&#92;&quot;:6476997.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-11T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:67.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.676,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:1954,&#92;&quot;STUDENT_ID&#92;&quot;:6592406.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-18T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:41.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Certificate&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Education&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:34.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.956,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:2011,&#92;&quot;STUDENT_ID&#92;&quot;:6008851.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-14T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:70.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.733,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;}]&quot;' data-total-rows='179' data-total-columns='15' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;STUDENT_ID&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;GRAD_APPL_DATE&quot;,[&quot;datetime&quot;,&quot;datetime64[ns]&quot;]],[&quot;GRADUATION_DATE&quot;,[&quot;datetime&quot;,&quot;datetime64[ns]&quot;]],[&quot;GRADUATED_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;TOTAL_CREDITS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;DEGREE_TYPE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;MAJOR&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;DEPARTMENT&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;COLLEGE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;REQUIRED_HOURS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;FULLY_ONLINE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;AID_ELIGIBLE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;HONORS&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;OVERALL_GPA&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;SEMESTER&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "dAeR",
+      "code_hash": "6d5835f76d37174b231c173378f59ee3",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='dAeR-0' random-id='b3c0a41e-945a-f0ba-8b95-857326411193'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;&#92;&quot;:212,&#92;&quot;STUDENT_ID&#92;&quot;:4375506.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-19T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:123.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Certificate&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Graphic Communications&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:32.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;U&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.867,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:236,&#92;&quot;STUDENT_ID&#92;&quot;:5961741.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-12T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:70.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Psychology&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Psychology&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Humanities &amp; Social Sciences&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.97,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:530,&#92;&quot;STUDENT_ID&#92;&quot;:6000101.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-11T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:45.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.82,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:531,&#92;&quot;STUDENT_ID&#92;&quot;:6000101.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-11T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:45.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.82,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:537,&#92;&quot;STUDENT_ID&#92;&quot;:5748591.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-11T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:95.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:&#92;&quot;High Honors&#92;&quot;,&#92;&quot;OVERALL_GPA&#92;&quot;:3.956,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:566,&#92;&quot;STUDENT_ID&#92;&quot;:5863580.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-18T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:72.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.203,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:576,&#92;&quot;STUDENT_ID&#92;&quot;:6004742.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-17T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:102.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;General Studies&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Unknown&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Provost Office&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.441,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:577,&#92;&quot;STUDENT_ID&#92;&quot;:6004742.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-17T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:102.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Pre-Medical Health Sciences&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Biology&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Science, Math &amp; Engineering&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:null,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.441,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:619,&#92;&quot;STUDENT_ID&#92;&quot;:4445870.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-10T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:76.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Visual Arts - Design Spec.&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Visual Arts &amp; Design&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Arts, Comm, &amp; New Media&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:69.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:2.986,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;},{&#92;&quot;&#92;&quot;:643,&#92;&quot;STUDENT_ID&#92;&quot;:6217927.0,&#92;&quot;GRAD_APPL_DATE&#92;&quot;:&#92;&quot;2021-05-19T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATION_DATE&#92;&quot;:&#92;&quot;2021-05-06T00:00:00.000&#92;&quot;,&#92;&quot;GRADUATED_IND&#92;&quot;:&#92;&quot;Y&#92;&quot;,&#92;&quot;TOTAL_CREDITS&#92;&quot;:48.0,&#92;&quot;DEGREE_TYPE&#92;&quot;:&#92;&quot;Associates&#92;&quot;,&#92;&quot;MAJOR&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;DEPARTMENT&#92;&quot;:&#92;&quot;Business Management&#92;&quot;,&#92;&quot;COLLEGE&#92;&quot;:&#92;&quot;Business&#92;&quot;,&#92;&quot;REQUIRED_HOURS&#92;&quot;:61.0,&#92;&quot;FULLY_ONLINE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;AID_ELIGIBLE_IND&#92;&quot;:&#92;&quot;N&#92;&quot;,&#92;&quot;HONORS&#92;&quot;:null,&#92;&quot;OVERALL_GPA&#92;&quot;:3.177,&#92;&quot;SEMESTER&#92;&quot;:&#92;&quot;Spring 2021&#92;&quot;}]&quot;' data-total-rows='3024' data-total-columns='15' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;STUDENT_ID&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;GRAD_APPL_DATE&quot;,[&quot;datetime&quot;,&quot;datetime64[ns]&quot;]],[&quot;GRADUATION_DATE&quot;,[&quot;datetime&quot;,&quot;datetime64[ns]&quot;]],[&quot;GRADUATED_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;TOTAL_CREDITS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;DEGREE_TYPE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;MAJOR&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;DEPARTMENT&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;COLLEGE&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;REQUIRED_HOURS&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;FULLY_ONLINE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;AID_ELIGIBLE_IND&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;HONORS&quot;,[&quot;string&quot;,&quot;object&quot;]],[&quot;OVERALL_GPA&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;SEMESTER&quot;,[&quot;string&quot;,&quot;object&quot;]]]' data-show-filters='true' data-show-download='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "qfJh",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    }
+  ]
+}

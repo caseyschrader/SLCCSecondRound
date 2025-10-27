@@ -575,16 +575,16 @@ with col2:
             })
             st.dataframe(breakdown_df, use_container_width=True)
             
-            # Visualization
-            fig = px.pie(
-                breakdown_df,
-                values='Count',
-                names='Status',
-                title='Unmatched Students by Graduation Status',
-                color='Status',
-                color_discrete_map={'Graduated': '#1f77b4', 'Not Graduated': '#ff7f0e'}
-            )
-            st.plotly_chart(fig, use_container_width=True)
+        # Visualization
+        fig = px.pie(
+            breakdown_df,
+            values='Count',
+            names='Status',
+            title='Unmatched Students by Graduation Status',
+            color='Status',
+            color_discrete_map={'Graduated': '#1f77b4', 'Not Graduated': '#ff7f0e'}
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 

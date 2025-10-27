@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.16.1"
+__generated_with = "0.17.2"
 app = marimo.App(width="medium")
 
 
@@ -13,7 +13,7 @@ def _():
     return mo, pd
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(
         r"""
@@ -30,7 +30,7 @@ def _(mo):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""## 1. Data Loading""")
     return
@@ -50,7 +50,7 @@ def _(graduation, students):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""## 2. Initial Data Exploration""")
     return
@@ -64,17 +64,31 @@ def _(graduation):
 
 @app.cell
 def _(graduation):
-    graduation.columns
+    graduation.dtypes
     return
 
 
+app._unparsable_cell(
+    r"""
+     students.head(20)
+    """,
+    name="_"
+)
+
+
 @app.cell
+def _(students):
+    students.dtypes
+    return
+
+
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""## 3. Data Quality Checks""")
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""### 3.1 Missing Values""")
     return
@@ -92,7 +106,7 @@ def _(students):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""### 3.2 Unique Values Analysis""")
     return
@@ -117,7 +131,7 @@ def _(students):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""### 3.3 Data Consistency Checks""")
     return
@@ -132,9 +146,14 @@ def _(graduation, students):
     return (unmatched,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## 4. Data Validation & Issue Detection""")
+    mo.md(
+        r"""
+    ## 4. Data Validation & Business Logic
+
+    """
+    )
     return
 
 
@@ -146,7 +165,7 @@ def _(graduation, pd):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""### 4.1 Date Logic Validation""")
     return
@@ -161,7 +180,7 @@ def _(graduation):
     return (grad_date_issues,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""### 4.2 Credit Requirements Validation""")
     return
@@ -179,7 +198,7 @@ def _(graduation):
     return (below_credits_but_graduated,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""### 4.3 GPA Validation""")
     return
@@ -188,12 +207,12 @@ def _(mo):
 @app.cell
 def _(graduation):
     # Check for invalid GPA values (> 4.0)
-    invalid_gpa_count = (graduation['OVERALL_GPA'] > 4).sum()
-    print(f"Records with GPA > 4.0: {invalid_gpa_count}")
+    invalid_gpa_count = (graduation['OVERALL_GPA'] > 4).sum() | (graduation['OVERALL_GPA'] < 0).sum()
+    print(f"Records with GPA > 4.0 or GPA < 0: {invalid_gpa_count}")
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""### 4.4 Duplicate Check""")
     return
@@ -206,7 +225,7 @@ def _(graduation):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""## 5.Creating New Fields""")
     return
@@ -234,7 +253,7 @@ def _(graduation):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""## 6. Dashboard Data Preparation""")
     return
@@ -268,7 +287,7 @@ def _(dashboard_data):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""## 7. Export Quality Summary""")
     return
@@ -311,7 +330,7 @@ def _(dashboard_data):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(
         r"""
@@ -324,6 +343,34 @@ def _(mo):
     - Unmatched student records between datasets
     """
     )
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    return
+
+
+@app.cell
+def _(graduation):
+    graduation[graduation['SEMESTER'] == 'Other']['GRADUATION_DATE'].unique()
+    return
+
+
+@app.cell
+def _(graduation):
+    graduation[(graduation['GRADUATED_IND'] == 'N') & (graduation['GRAD_APPL_DATE'] > graduation['GRADUATION_DATE'])]
+    return
+
+
+@app.cell
+def _(graduation):
+    graduation[(graduation['GRADUATED_IND'] == 'Y') & (graduation['GRAD_APPL_DATE'] > graduation['GRADUATION_DATE'])]
+    return
+
+
+@app.cell
+def _():
     return
 
 
