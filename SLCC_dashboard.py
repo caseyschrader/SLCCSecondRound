@@ -613,3 +613,11 @@ with tab2:
 with tab3:
     st.subheader("Student Records")
     st.dataframe(students, use_container_width=True)
+    
+# Recommendations
+
+st.header("Recommendations")
+
+st.write("- Implement validation rules to prevent future date errors and credit requirement issues")
+st.write("- Perform an audit of the graduation and student systems to determine why student IDs aren't matching")
+st.write("- Create an automated data pipeline that standardizes dates to proper datatype, removes duplicates, and resolves null values before entering the system")
