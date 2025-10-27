@@ -565,16 +565,16 @@ with col2:
             use_container_width=True
         )
         
-        # Show breakdown by graduation status
-        if unmatched_count > 0:
-            st.write("**Breakdown by Graduation Status:**")
-            unmatched_breakdown = unmatched_students['GRADUATED_IND'].value_counts()
-            breakdown_df = pd.DataFrame({
-                'Status': unmatched_breakdown.index.map({'Y': 'Graduated', 'N': 'Not Graduated'}),
-                'Count': unmatched_breakdown.values
-            })
-            st.dataframe(breakdown_df, use_container_width=True)
-            
+    # Show breakdown by graduation status
+    if unmatched_count > 0:
+        st.write("**Breakdown by Graduation Status:**")
+        unmatched_breakdown = unmatched_students['GRADUATED_IND'].value_counts()
+        breakdown_df = pd.DataFrame({
+            'Status': unmatched_breakdown.index.map({'Y': 'Graduated', 'N': 'Not Graduated'}),
+            'Count': unmatched_breakdown.values
+        })
+        st.dataframe(breakdown_df, use_container_width=True)
+        
         # Visualization
         fig = px.pie(
             breakdown_df,
