@@ -424,7 +424,6 @@ with col2:
 
 # Visualization of Unknown values by Major
 if unknown_count > 0:
-    st.write("**Unknown Values Distribution by Major**")
     unknown_data = filtered_data[filtered_data['HAS_UNKNOWN_VALUES'] == True]
     major_unknown_counts = unknown_data.groupby('MAJOR').size().sort_values(ascending=False).head(15)
     
